@@ -1,0 +1,12 @@
+﻿@model WebKeep.Models.DbModel
+
+@*<ol>
+    <li> @Model.Categorry @Model.Description <a href="@Model.Link">@Model.Link</a> @Model.Date</li>
+</ol>*@
+<div class="row">
+    <div class="col">@Model.Id</div>
+    <div class="col">@Model.Categorry</div>
+    <div class="col">@Model.Description</div>
+    <div class="col"><a href="@Model.Link">@Model.Link</a></div>
+    <div class="col">@Model.Date</div>
+</div>

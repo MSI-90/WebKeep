@@ -1,0 +1,28 @@
+﻿@page
+@model WebKeep.Pages.DataListModel
+@{
+    ViewData["Title"] = "Список";
+}
+
+<div>
+    @if (Model.SavedLinksList.Any())
+    {
+        <div>
+            <h4>Всего записей в списке: @Model.Count</h4>
+            @foreach (var item in Model.SavedLinksList)
+            {
+                <partial name="_SavedLinksList" model="item" />
+                <div class="col">
+                    <p>
+                        <a asp-area="" asp-page="EditPage" asp-route-id="@item.Id">Редактировать</a>
+                    </p>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <span class="emptyList">Нет данных для отображения, список пуст!</span>
+    }
+</div>
+    
