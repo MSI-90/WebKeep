@@ -25,11 +25,10 @@ namespace WebKeep.Pages
                         ConnectionState = _db.ErrorMessage;
                     else
                     {
-                        if (connection.State.ToString() == "Open")
-                            ConnectionState = connection.State.ToString();
+                        ConnectionState = (connection.State.ToString() == "Open") ? "Open" : "Closed";
+
                         return;
                     }
-
                 }
             }
         }

@@ -23,7 +23,6 @@ namespace WebKeep.Pages
                 {
                     error = "Запрашиваемая Вами страница не найдена!"
                 });
-                //return RedirectToPage("Index1");
             }
             else
             {
