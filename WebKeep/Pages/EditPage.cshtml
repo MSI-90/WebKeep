@@ -3,4 +3,53 @@
 @{
 }
 
-<h4>@Model.SavedLinks.Description</h4>
+<div class="container">
+    <div class="row align-content-md-center">
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col">
+                    <label>Категория</label>
+                </div>
+                <div class="col">
+                    <input asp-for="@Model.SavedLinks.Category" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label>Описание</label>
+                </div>
+                <div class="col">
+                    <textarea asp-for="@Model.SavedLinks.Description" cols="18" rows="4"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label>Ссылка на ресурс</label>
+                </div>
+                <div class="col">
+                    <textarea asp-for="@Model.SavedLinks.Link" cols="18" rows="4"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label>Дата добавления</label>
+                </div>
+                <div class="col">
+                    <input asp-for="@Model.SavedLinks.Date" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <form method="post">
+                <div class="row">
+                    <div class="col">
+                        <label asp-for="Input.Category"></label>
+                    </div>
+                    <div class="col">
+                        <input asp-for="Input.Category" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

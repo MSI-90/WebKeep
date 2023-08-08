@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using NuGet.Protocol.Plugins;
+using System.ComponentModel.DataAnnotations;
 using WebKeep.Interfaces;
 using WebKeep.Models;
 
@@ -9,6 +12,7 @@ namespace WebKeep.Pages
     {
         private readonly ISavedLinks _savedLinks;
         public DbModel SavedLinks { get; set; }
+        public UserEditModel Input { get; set; }
         public TestPModel(ISavedLinks savedLinks)
         {
             _savedLinks = savedLinks;
@@ -32,8 +36,34 @@ namespace WebKeep.Pages
         }
         public async Task<DbModel> GetDbModelAsync(int id)
         {
-            var result = await _savedLinks.GetSavedLinks(id);
-            return result;
+            try
+            {
+                var result = await _savedLinks.GetSavedLinks(id);
+                return result;
+            }
+            catch (InvalidOperationException message)
+            {
+                return null;
+            }
+        }
+        public void OnPost()
+        {
+
+        }
+        public class UserEditModel
+        {
+            [StringLength(20)]
+            [Display(Name = "Категория", Description = "Укажите новую увткгорию для выбронного ресурса")]
+            public string Category{ get; set; }
+
+            [StringLength(50)]
+            [Display(Name = "Описание", Description = "Укажите новое описание")]
+            public string Description { get; set; }
+
+            [StringLength(250)]
+            [Display(Name = "Ссылка на ресурс", Description = "Изменить ссылку на ресурс материала")]
+            public string Link { get; set; }
+            public DateTime CreatedDate { get; set; }
         }
     }
 }
