@@ -3,6 +3,8 @@ using System.Data;
 using WebKeep.Interfaces;
 using WebKeep.Models;
 using Dapper;
+using static WebKeep.Pages.TestPModel;
+using NuGet.Protocol.Plugins;
 
 namespace WebKeep.Services
 {   
@@ -86,6 +88,28 @@ namespace WebKeep.Services
             }
             //return null; for ADO.NET
         }
-        
+        public async Task<int> UpdateSavedLinks(UserEditModel model, int id)
+        {
+            var result = 0;
+            using (var connection = _connection.CreateConnection())
+            {
+                if (!string.IsNullOrEmpty(model.Category))
+                {
+                    var query = $"UPDATE SavedLinks SET Category = @Category WHERE Id = {id}";
+                    result = await connection.ExecuteAsync(query, model);
+                }
+                if (!string.IsNullOrEmpty(model.Description))
+                {
+                    var query = $"UPDATE SavedLinks SET Description = @Description WHERE Id = {id}";
+                    result = await connection.ExecuteAsync(query, model);
+                }
+                if (!string.IsNullOrEmpty(model.Link))
+                {
+                    var query = $"UPDATE SavedLinks SET Link = @Link WHERE Id = {id}";
+                    result = await connection.ExecuteAsync(query, model);
+                }
+            }
+            return result;
+        }
     }
 }

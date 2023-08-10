@@ -5,7 +5,7 @@
 
 <div class="container">
     <div class="row align-content-md-center">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="row">
                 <div class="col">
                     <label>Категория</label>
@@ -39,14 +39,41 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-6">
             <form method="post">
                 <div class="row">
                     <div class="col">
-                        <label asp-for="Input.Category"></label>
+                        <label asp-for="Input.Category" title="Укажите новую категорию для выбронного ресурса"></label>
                     </div>
                     <div class="col">
                         <input asp-for="Input.Category" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label asp-for="Input.Description" title="Укажите новое описание"></label>
+                    </div>
+                    <div class="col">
+                        <textarea asp-for="Input.Description" cols="18" rows="4"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label asp-for="Input.Link" title="Изменить ссылку на ресурс материала"></label>
+                    </div>
+                    <div class="col">
+                        <textarea asp-for="Input.Link" cols="18" rows="4"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col">
+                        <button type="submit" class="btn-success" style="margin-top:5px;">Изменить</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div asp-validation-summary="ModelOnly"></div>
                     </div>
                 </div>
             </form>

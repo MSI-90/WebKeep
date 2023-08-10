@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using NuGet.Protocol.Plugins;
 using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 using WebKeep.Interfaces;
 using WebKeep.Models;
 
@@ -12,7 +13,10 @@ namespace WebKeep.Pages
     {
         private readonly ISavedLinks _savedLinks;
         public DbModel SavedLinks { get; set; }
+
+        [BindProperty]
         public UserEditModel Input { get; set; }
+        public List<string> ModelErrors { get; set; }
         public TestPModel(ISavedLinks savedLinks)
         {
             _savedLinks = savedLinks;
@@ -34,6 +38,29 @@ namespace WebKeep.Pages
                 return Page();
             }
         }
+        public IActionResult OnPost(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError(string.Empty, "Ошибки модели");
+                return Page();
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(Input.Category) || !string.IsNullOrEmpty(Input.Description) || !string.IsNullOrEmpty(Input.Link))
+                {
+                    var result = _savedLinks.UpdateSavedLinks(Input, id);
+                    if (result.Result != 1)
+                    {
+                        return RedirectToPage("NotFound", new
+                        {
+                            error = "Невозможно обновить запись, возникла ошибка!"
+                        });
+                    }
+                }
+                return RedirectToPage("DataList");
+            }
+        }
         public async Task<DbModel> GetDbModelAsync(int id)
         {
             try
@@ -46,24 +73,35 @@ namespace WebKeep.Pages
                 return null;
             }
         }
-        public void OnPost()
-        {
-
-        }
+        //public async Task<int> UpdateSavedLinks(UserEditModel model, int id)
+        //{
+        //    try
+        //    {
+        //        var result = await _savedLinks.UpdateSavedLinks(Input, id);
+        //        return result;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return 0;
+        //    }
+        //}
         public class UserEditModel
         {
+            [MinLength(0)]
             [StringLength(20)]
-            [Display(Name = "Категория", Description = "Укажите новую увткгорию для выбронного ресурса")]
-            public string Category{ get; set; }
+            [Display(Name = "Категория")]
+            public string? Category{ get; set; }
 
+            [MinLength(0)]
             [StringLength(50)]
-            [Display(Name = "Описание", Description = "Укажите новое описание")]
-            public string Description { get; set; }
+            [Display(Name = "Описание")]
+            public string? Description { get; set; }
 
+            [MinLength(0)]
             [StringLength(250)]
-            [Display(Name = "Ссылка на ресурс", Description = "Изменить ссылку на ресурс материала")]
-            public string Link { get; set; }
-            public DateTime CreatedDate { get; set; }
+            [Display(Name = "Ссылка на ресурс")]
+            public string? Link { get; set; }
+            //public DateTime CreatedDate { get; set; }
         }
     }
 }
