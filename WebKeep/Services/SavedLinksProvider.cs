@@ -5,14 +5,18 @@ using WebKeep.Models;
 using Dapper;
 using static WebKeep.Pages.TestPModel;
 using NuGet.Protocol.Plugins;
+using WebKeep.Pages;
 
 namespace WebKeep.Services
 {   
     //Класс, реализующий интерфейс ISavedLinks 
 
     public class SavedLinksProvider : ISavedLinks
-    {
+    {   
         private readonly IDbConnect _connection;
+
+        //public int Count { get; set; }
+
         public SavedLinksProvider(IDbConnect connection)
         {
             _connection = connection;
@@ -121,6 +125,10 @@ namespace WebKeep.Services
                 {
                     var query = $"DELETE FROM SavedLinks WHERE id = {id}";
                     result = await connection.ExecuteAsync(query);
+
+                    //var q = GetDataAsync();
+                    //Count = q.Result.Count;
+                    //query = $"DBCC CHECKIDENT ('SavedLinks', RESEED, 0);";
                 }
             }
             return result;
