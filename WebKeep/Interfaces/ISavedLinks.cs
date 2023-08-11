@@ -9,7 +9,7 @@ namespace WebKeep.Interfaces
     {
         Task<List<DbModel>> GetDataAsync();
         Task<DbModel> GetSavedLinks(int id);
-        //Task<int> UpdateSavedLinks(UserEditModel model, int id);
         Task<int> UpdateSavedLinks(UserEditModel model, int id);
+        Task<int> DeleteSavedLinks(int id);
     }
 }

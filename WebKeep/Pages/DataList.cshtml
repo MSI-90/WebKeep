@@ -7,15 +7,20 @@
 <div>
     @if (Model.SavedLinksList.Any())
     {
-        <div>
+        <div class="container-md">
             <h4>Всего записей в списке: @Model.Count</h4>
             @foreach (var item in Model.SavedLinksList)
             {
                 <partial name="_SavedLinksList" model="item" />
                 <div class="col">
-                    <p>
-                        <a asp-area="" asp-page="EditPage" asp-route-id="@item.Id">Редактировать</a>
-                    </p>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <a asp-area="" asp-page="EditPage" asp-route-id="@item.Id">Редактировать</a>
+                        </div>
+                        <div class="col-md-2">
+                            <a asp-area="" asp-page="EditPage" asp-route-id="@item.Id" asp-page-handler="DeleteSavedlinks">Удалить</a>
+                        </div>
+                    </div>
                 </div>
             }
         </div>

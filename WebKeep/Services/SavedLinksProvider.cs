@@ -111,5 +111,19 @@ namespace WebKeep.Services
             }
             return result;
         }
+        public async Task<int> DeleteSavedLinks(int id)
+        {
+            var result = 0;
+            using (var connection = _connection.CreateConnection())
+            {
+                var inSavedLinks = GetSavedLinks(id);
+                if (inSavedLinks.Result != null)
+                {
+                    var query = $"DELETE FROM SavedLinks WHERE id = {id}";
+                    result = await connection.ExecuteAsync(query);
+                }
+            }
+            return result;
+        }
     }
 }

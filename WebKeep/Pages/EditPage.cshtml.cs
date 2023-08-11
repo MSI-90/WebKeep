@@ -12,6 +12,8 @@ namespace WebKeep.Pages
     public class TestPModel : PageModel
     {
         private readonly ISavedLinks _savedLinks;
+
+        //[BindProperty(SupportsGet = true)]
         public DbModel SavedLinks { get; set; }
 
         [BindProperty]
@@ -73,18 +75,26 @@ namespace WebKeep.Pages
                 return null;
             }
         }
-        //public async Task<int> UpdateSavedLinks(UserEditModel model, int id)
-        //{
-        //    try
-        //    {
-        //        var result = await _savedLinks.UpdateSavedLinks(Input, id);
-        //        return result;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return 0;
-        //    }
-        //}
+        public IActionResult OnGetDeleteSavedlinks(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError(string.Empty, "Ошибки модели");
+                return Page();
+            }
+            else
+            {
+                var result = _savedLinks.DeleteSavedLinks(id);
+                if (result.Result != 1)
+                {
+                    return RedirectToPage("NotFound", new
+                    {
+                        error = "Невозможно удалить запись, возникла ошибка!"
+                    });
+                }
+                return RedirectToPage("DataList");
+            }
+        }
         public class UserEditModel
         {
             [MinLength(0)]
