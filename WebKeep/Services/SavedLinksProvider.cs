@@ -6,6 +6,7 @@ using Dapper;
 using static WebKeep.Pages.TestPModel;
 using NuGet.Protocol.Plugins;
 using WebKeep.Pages;
+using static WebKeep.Pages.Index2Model;
 
 namespace WebKeep.Services
 {   
@@ -29,7 +30,6 @@ namespace WebKeep.Services
                 return result.ToList();
             }
         }
-
         public async Task<DbModel> GetSavedLinks(int id)
         {
             using(var connection = _connection.CreateConnection())
@@ -77,6 +77,16 @@ namespace WebKeep.Services
                 }
             }
             return result;
+        }
+        public async Task<int> AddNewItemInSavedLinks(UserInputModel model)
+        {
+            using(var connection = _connection.CreateConnection())
+            {
+                var query = $"INSERT INTO SavedLinks (Category, Description, Link, Date) VALUES ('{model.Category}', '{model.Description}', " +
+                    $"'{model.Link}', '{model.Date}')";
+                var result = await connection.ExecuteAsync(query);
+                return result;
+            }
         }
     }
 }

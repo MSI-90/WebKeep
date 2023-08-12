@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ActionConstraints;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 using WebKeep.Interfaces;
@@ -19,11 +21,34 @@ namespace WebKeep.Pages
         {
             ViewData["Title"] = "Добавление новой записи";
         }
-        public void OnPost()
+        public IActionResult OnPost()
         {
-            if(ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-
+                ModelState.AddModelError(String.Empty, "Ошибка");
+                return Page();
+            }
+            else 
+            {
+                try
+                {
+                    var result = _savedLinks.AddNewItemInSavedLinks(UserInput);
+                    if (result.Result != 1)
+                    {
+                        return RedirectToPage("NotFound", new
+                        {
+                            error = "Невозможно добавить запись в список, возникла ошибка!"
+                        });
+                    }
+                    return RedirectToPage("DataList");
+                }
+                catch (System.AggregateException ex)
+                {
+                    return RedirectToPage("NotFound", new
+                    {
+                        error = "Ошибка в синтаксисе запроса SQL, возникла ошибка!"
+                    });
+                }
             }
         }
         public class UserInputModel
