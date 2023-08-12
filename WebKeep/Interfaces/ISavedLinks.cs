@@ -7,7 +7,6 @@ namespace WebKeep.Interfaces
 
     public interface ISavedLinks
     {
-        //public int Count { get; set; }
         Task<List<DbModel>> GetDataAsync();
         Task<DbModel> GetSavedLinks(int id);
         Task<int> UpdateSavedLinks(UserEditModel model, int id);
