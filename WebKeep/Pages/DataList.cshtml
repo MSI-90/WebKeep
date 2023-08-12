@@ -8,8 +8,8 @@
     @if (Model.SavedLinksList.Any())
     {
         <div class="container-md">
-            <form>
-                <button name="Create" asp-page="Create" asp-page-handler="OnGet" type="submit">Добавить запись</button>
+            <form action="../Pages/Create.cshtml">
+                <button asp-page="Create"  type="submit">Добавить запись</button>
             </form>
             
         </div>

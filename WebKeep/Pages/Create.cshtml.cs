@@ -7,7 +7,8 @@ namespace WebKeep.Pages
     {
         public void OnGet()
         {
-
+            ViewData["Title"] = "Добавление новой записи";
         }
+        
     }
 }
