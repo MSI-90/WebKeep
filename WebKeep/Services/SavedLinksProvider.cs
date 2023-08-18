@@ -7,6 +7,7 @@ using static WebKeep.Pages.TestPModel;
 using NuGet.Protocol.Plugins;
 using WebKeep.Pages;
 using static WebKeep.Pages.Index2Model;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace WebKeep.Services
 {   
@@ -82,11 +83,36 @@ namespace WebKeep.Services
         {
             using(var connection = _connection.CreateConnection())
             {
+
                 var query = $"INSERT INTO SavedLinks (Category, Description, Link, Date) VALUES ('{model.Category}', '{model.Description}', " +
                     $"'{model.Link}', '{model.Date}')";
                 var result = await connection.ExecuteAsync(query);
                 return result;
             }
         }
+        public async Task<SelectListItem[]> GetCategory()
+        {
+            using( var connection = _connection.CreateConnection())
+            {
+                var query = "SELECT DISTINCT Category FROM SavedLinks";
+                var result = await connection.QueryAsync<string>(query);
+                string[] resultList = result.ToArray();
+                
+                SelectListItem[] categoryResult = new SelectListItem[result.Count()];
+                for (int i = 0; i < result.Count(); i++)
+                {
+                    categoryResult[i] = new SelectListItem()
+                    {
+                        Text = resultList[i],
+                        Value = resultList[i]
+                    };
+                }
+                if (categoryResult is null)
+                    return null;
+                else
+                    return categoryResult;
+            }
+        }
+
     }
 }

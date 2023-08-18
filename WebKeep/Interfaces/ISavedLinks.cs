@@ -1,4 +1,5 @@
-﻿using WebKeep.Models;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using WebKeep.Models;
 using static WebKeep.Pages.Index2Model;
 using static WebKeep.Pages.TestPModel;
 
@@ -13,5 +14,6 @@ namespace WebKeep.Interfaces
         Task<int> UpdateSavedLinks(UserEditModel model, int id);
         Task<int> DeleteSavedLinks(int id);
         Task<int> AddNewItemInSavedLinks(UserInputModel model);
+        Task<SelectListItem[]> GetCategory();
     }
 }

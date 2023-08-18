@@ -8,10 +8,19 @@
     @if (Model.SavedLinksList.Any())
     {
         <div class="container-md">
-            <form action="../Pages/Create.cshtml">
-                <button asp-page="Create"  type="submit">Добавить запись</button>
-            </form>
-            
+            <div class="row">
+                <div class="col">
+                    <form action="../Pages/Create.cshtml">
+                        <button asp-page="Create" type="submit">Добавить запись</button>
+                    </form>
+                </div>
+                <div class="col">
+                    <select asp-for="InputSort.Categories" asp-items="Model.Categories">
+                        <option value="">**не выбрано**</option>
+                    </select>
+                        
+                </div>
+            </div>
         </div>
         <div class="container-md">
             <h4>Всего записей в списке: @Model.Count</h4>

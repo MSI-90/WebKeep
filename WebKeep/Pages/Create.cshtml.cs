@@ -67,7 +67,7 @@ namespace WebKeep.Pages
             [StringLength(250)]
             [Display(Name = "—сылка на ресурс")]
             public string Link { get; set; }
-            public string Date { get; set; } = DateTime.Now.ToString("dd.mm.yyyy");
+            public string Date { get; set; } = DateTime.Now.ToString("dd.MM.yyyy");
         }
     }
 }
