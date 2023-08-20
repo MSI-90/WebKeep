@@ -8,6 +8,8 @@ using NuGet.Protocol.Plugins;
 using WebKeep.Pages;
 using static WebKeep.Pages.Index2Model;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using static System.Net.WebRequestMethods;
+using static WebKeep.Pages.DataListModel;
 
 namespace WebKeep.Services
 {   
@@ -90,6 +92,9 @@ namespace WebKeep.Services
                 return result;
             }
         }
+
+        // Метод с помощью которого происходит извлечение набора записей из поля Category
+        // Затем выбранные записи помещаются в SelectListItem для отображения на странице
         public async Task<SelectListItem[]> GetCategory()
         {
             using( var connection = _connection.CreateConnection())
@@ -111,6 +116,18 @@ namespace WebKeep.Services
                     return null;
                 else
                     return categoryResult;
+            }
+        }
+        public async Task<List<DbModel>> GetAllDataFromCategory(FilterSortModel sort)
+        {
+
+            using (var connection = _connection.CreateConnection())
+            {
+                var query = $"SELECT * FROM SavedLinks WHERE Category='{sort.Categories}'";
+                var result = await connection.QueryAsync<DbModel>(query);
+                if (result is null)
+                    return new List<DbModel>();
+                return result.ToList();
             }
         }
 

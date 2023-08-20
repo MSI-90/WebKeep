@@ -4,21 +4,24 @@
     ViewData["Title"] = "Список";
 }
 
-<div>
+<div class="container-md">
     @if (Model.SavedLinksList.Any())
     {
-        <div class="container-md">
+        <div class="container-md mb-3">
             <div class="row">
-                <div class="col">
+                <div class="col-md-2">
                     <form action="../Pages/Create.cshtml">
                         <button asp-page="Create" type="submit">Добавить запись</button>
                     </form>
                 </div>
-                <div class="col">
-                    <select asp-for="InputSort.Categories" asp-items="Model.Categories">
-                        <option value="">**не выбрано**</option>
-                    </select>
-                        
+                <div class="col-md-6">
+                    <form method="get">
+                        <select asp-for="InputSort.Categories" asp-items="Model.Categories" class="form-control"
+                                style="color:maroon;font-size:14px; width:25%;font-weight:bold;">
+                            <option value="">**не выбрано**</option>
+                        </select>
+                        <button type="submit" asp-page-handler="FilterCategories">Показать</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -60,5 +63,6 @@
             </div>
         </div>
     }
+     
 </div>
     
