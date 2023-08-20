@@ -44,8 +44,7 @@ namespace WebKeep.Pages
         
         public class FilterSortModel
         {
-            //[Category]
-            public string Categories { get; set; } /*= String.Empty;*/
+            public string Categories { get; set; }
         }
     }
 }
