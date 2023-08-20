@@ -12,7 +12,7 @@ namespace WebKeep
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddSingleton<IDbConnect, DbConnections>();
-            builder.Services.AddSingleton<ISavedLinks, SavedLinksProvider>();
+            builder.Services.AddTransient<ISavedLinks, SavedLinksProvider>();
 
             var app = builder.Build();
 
