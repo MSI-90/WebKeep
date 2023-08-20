@@ -4,6 +4,14 @@
     ViewData["Title"] = "Список";
 }
 
+<style>
+    .mystyle{
+        color: brown;
+        font-weight: bold;
+        border:dotted 1px grey;
+    }
+</style>
+
 <div class="container-md">
     @if (Model.SavedLinksList.Any())
     {
@@ -20,6 +28,7 @@
                                 style="color:maroon;font-size:14px; width:25%;font-weight:bold;">
                             <option value="">--не выбрано--</option>
                         </select>
+                        <br/>
                         <button type="submit" asp-page-handler="FilterCategories">Показать</button>
                     </form>
                 </div>
@@ -28,11 +37,11 @@
         <div class="container-md">
             <h4>Всего записей в списке: @Model.Count</h4>
             <div class="row">
-                <div class="col-md-1">№ п/п</div>
-                <div class="col-md-2">Категория</div>
-                <div class="col-md-2">Описание</div>
-                <div class="col-md-5">Ссылка на ресурс</div>
-                <div class="col-md-2">Дата добавления</div>
+                <div class="col-md-1 mystyle">№ п/п</div>
+                <div class="col-md-2 mystyle">Категория</div>
+                <div class="col-md-2 mystyle">Описание</div>
+                <div class="col-md-5 mystyle">Ссылка на ресурс</div>
+                <div class="col-md-2 mystyle">Дата добавления</div>
             </div>
             @foreach (var item in Model.SavedLinksList)
             {
