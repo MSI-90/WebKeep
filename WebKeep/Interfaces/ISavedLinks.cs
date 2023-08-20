@@ -10,12 +10,12 @@ namespace WebKeep.Interfaces
 
     public interface ISavedLinks
     {
-        Task<List<DbModel>> GetDataAsync();
+        Task<IEnumerable<DbModel>> GetDataAsync();
         Task<DbModel> GetSavedLinks(int id);
         Task<int> UpdateSavedLinks(UserEditModel model, int id);
         Task<int> DeleteSavedLinks(int id);
         Task<int> AddNewItemInSavedLinks(UserInputModel model);
         Task<SelectListItem[]> GetCategory();
-        Task<List<DbModel>> GetAllDataFromCategory(FilterSortModel sort);
+        Task<IEnumerable<DbModel>> GetAllDataFromCategory(FilterSortModel sort);
     }
 }

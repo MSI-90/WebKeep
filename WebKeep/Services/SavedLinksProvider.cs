@@ -23,7 +23,7 @@ namespace WebKeep.Services
         {
             _connection = connection;
         }
-        public async Task<List<DbModel>> GetDataAsync()
+        public async Task<IEnumerable<DbModel>> GetDataAsync()
         {
             using(var connection = _connection.CreateConnection())
             {
@@ -118,7 +118,7 @@ namespace WebKeep.Services
                     return categoryResult;
             }
         }
-        public async Task<List<DbModel>> GetAllDataFromCategory(FilterSortModel sort)
+        public async Task<IEnumerable<DbModel>> GetAllDataFromCategory(FilterSortModel sort)
         {
 
             using (var connection = _connection.CreateConnection())

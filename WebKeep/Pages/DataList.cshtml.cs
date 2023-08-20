@@ -14,7 +14,6 @@ namespace WebKeep.Pages
         private readonly ISavedLinks _savedLinks;
         public List<DbModel> SavedLinksList { get; set; }
         public int Count { get; set; }
-        public bool IsFilterOnCategory { get; set; } = false;
         public SelectListItem[] Categories { get; set; }
 
         [BindProperty(SupportsGet = true)]
@@ -22,43 +21,31 @@ namespace WebKeep.Pages
         public DataListModel(ISavedLinks savedLinks)
         {
             _savedLinks = savedLinks;
+
+            var categoryResult = _savedLinks.GetCategory();
+            if (categoryResult != null)
+            {
+                Categories = categoryResult.Result;
+            }
         }
 
         public void OnGet()
         {
-            if (ModelState.IsValid)
-            {
-                
-                var taskListResult = _savedLinks.GetDataAsync();
-                if (taskListResult != null)
-                {
-                    SavedLinksList = taskListResult.Result;
-                    Count = SavedLinksList.Count;
-                }
-                var categoryResult = _savedLinks.GetCategory();
-                if (categoryResult != null)
-                {
-                    Categories = categoryResult.Result;
-                }
+            var taskListResult = string.IsNullOrEmpty(InputSort.Categories)
+            ? _savedLinks.GetDataAsync()
+            : _savedLinks.GetAllDataFromCategory(InputSort);
 
-                if (!string.IsNullOrEmpty(InputSort.Categories))
-                {
-                    var result = _savedLinks.GetAllDataFromCategory(InputSort);
-                    if (result != null)
-                    {
-                        SavedLinksList = result.Result;
-                        IsFilterOnCategory = true;
-                        Count = SavedLinksList.Count;
-                    }
-                }
-                
+            if (taskListResult != null)
+            {
+                SavedLinksList = taskListResult.Result?.ToList();
+                Count = SavedLinksList?.Count ?? 0;
             }
         }
         
         public class FilterSortModel
         {
             //[Category]
-            public string Categories { get; set; } = string.Empty;
+            public string Categories { get; set; } /*= String.Empty;*/
         }
     }
 }
