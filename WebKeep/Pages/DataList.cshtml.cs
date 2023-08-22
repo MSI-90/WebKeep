@@ -39,6 +39,9 @@ namespace WebKeep.Pages
             {
                 SavedLinksList = taskListResult.Result?.ToList();
                 Count = SavedLinksList?.Count ?? 0;
+
+                for (int i = 0; i < Count; i++)
+                    SavedLinksList[i].IndexCount = i+1;
             }
         }
         

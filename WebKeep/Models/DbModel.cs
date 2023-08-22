@@ -9,5 +9,6 @@ namespace WebKeep.Models
         public string? Description { get; set; }
         public string? Link { get; set; }
         public string Date { get; set; } = DateTime.UtcNow.ToString("dd.mm.yyyy");
+        public int IndexCount { get; set; }
     }
 }

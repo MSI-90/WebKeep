@@ -9,6 +9,22 @@
         color: brown;
         font-weight: bold;
         border:dotted 1px grey;
+        text-align: center;
+    }
+    .links{
+        color: maroon;
+    }
+    .links a{
+        text-decoration:none;
+        color: grey;
+        font-weight: bold;
+        font-size: 10pt;
+    }
+    .links a:hover{
+        color: green;
+    }
+    .links a:active{
+        color: navy;
     }
 </style>
 
@@ -25,7 +41,7 @@
                 <div class="col-md-6">
                     <form method="get">
                         <select asp-for="InputSort.Categories" asp-items="Model.Categories" class="form-control"
-                                style="color:maroon;font-size:14px; width:25%;font-weight:bold;">
+                                style="color:maroon;font-size:14px; width:30%;font-weight:bold; text-align:center;">
                             <option value="">--не выбрано--</option>
                         </select>
                         <br/>
@@ -36,23 +52,25 @@
         </div>
         <div class="container-md">
             <h4>Всего записей в списке: @Model.Count</h4>
-            <div class="row">
+            <div class="row headers">
                 <div class="col-md-1 mystyle">№ п/п</div>
                 <div class="col-md-2 mystyle">Категория</div>
                 <div class="col-md-2 mystyle">Описание</div>
                 <div class="col-md-5 mystyle">Ссылка на ресурс</div>
                 <div class="col-md-2 mystyle">Дата добавления</div>
             </div>
+
             @foreach (var item in Model.SavedLinksList)
             {
                 <partial name="_SavedLinksList" model="item" />
                 <div class="col">
-                    <div class="row">
+                    <div class="row mb-md-3">
                         <div class="col-md-2">
-                            <a asp-area="" asp-page="EditPage" asp-route-id="@item.Id">Редактировать</a>
-                        </div>
-                        <div class="col-md-2">
-                            <a asp-area="" asp-page="EditPage" asp-route-id="@item.Id" asp-page-handler="DeleteSavedlinks">Удалить</a>
+                            <span class="links">
+                                <a asp-area="" asp-page="EditPage" asp-route-id="@item.Id">Редактировать</a>
+                                <span>|</span>
+                                <a asp-area="" asp-page="EditPage" asp-route-id="@item.Id" asp-page-handler="DeleteSavedlinks">Удалить</a>
+                            </span>
                         </div>
                     </div>
                 </div>

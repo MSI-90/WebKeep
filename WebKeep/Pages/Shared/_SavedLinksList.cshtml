@@ -1,7 +1,14 @@
 ﻿@model WebKeep.Models.DbModel
 
-<div class="row">
-    <div class="col-md-1">@Model.Id</div>
+<style>
+    .lineInBottom {
+        border-bottom:dotted 1px red;
+        text-align:center;
+    }
+</style>
+
+<div class="row lineInBottom">
+    <div class="col-md-1">@Model.IndexCount</div>
     <div class="col-md-2">@Model.Category</div>
     <div class="col-md-2">@Model.Description</div>
     <div class="col-md-5"><a href="@Model.Link">@Model.Link</a></div>
