@@ -26,7 +26,7 @@ namespace WebKeep.Pages
         public IActionResult OnGet(int id)
         {
             var result = GetDbModelAsync(id);
-
+            
             if (result.Result is null)
             {
                 return RedirectToPage("NotFound", new
@@ -111,7 +111,6 @@ namespace WebKeep.Pages
             [StringLength(250)]
             [Display(Name = "—сылка на ресурс")]
             public string? Link { get; set; }
-            //public DateTime CreatedDate { get; set; }
         }
     }
 }

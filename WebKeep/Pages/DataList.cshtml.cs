@@ -35,14 +35,14 @@ namespace WebKeep.Pages
             ? _savedLinks.GetDataAsync()
             : _savedLinks.GetAllDataFromCategory(InputSort);
 
-            if (taskListResult != null)
-            {
-                SavedLinksList = taskListResult.Result?.ToList();
-                Count = SavedLinksList?.Count ?? 0;
+            //if (taskListResult != null)
+            //{
+            SavedLinksList = taskListResult.Result.ToList();
+            Count = SavedLinksList?.Count ?? 0;
 
-                for (int i = 0; i < Count; i++)
-                    SavedLinksList[i].IndexCount = i+1;
-            }
+            for (int i = 0; i < Count; i++)
+                SavedLinksList[i].IndexCount = i+1;
+            //}
         }
         
         public class FilterSortModel
