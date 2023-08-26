@@ -54,7 +54,7 @@ namespace WebKeep.Pages
         public class UserInputModel
         {
             [Required]
-            [StringLength(20)]
+            [StringLength(50)]
             [Display(Name = "Категория")]
             public string Category { get; set; }
 

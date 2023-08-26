@@ -98,7 +98,7 @@ namespace WebKeep.Pages
         public class UserEditModel
         {
             [MinLength(0)]
-            [StringLength(20)]
+            [StringLength(50)]
             [Display(Name = "Категория")]
             public string? Category{ get; set; }
 
