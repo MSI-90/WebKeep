@@ -59,12 +59,12 @@ namespace WebKeep.Pages
             public string Category { get; set; }
 
             [Required]
-            [StringLength(50)]
+            [StringLength(200)]
             [Display(Name = "ќписание")]
             public string Description { get; set; }
 
             [Required]
-            [StringLength(250)]
+            [StringLength(500)]
             [Display(Name = "—сылка на ресурс")]
             public string Link { get; set; }
             public string Date { get; set; } = DateTime.Now.ToString("dd.MM.yyyy");

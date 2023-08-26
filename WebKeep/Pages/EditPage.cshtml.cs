@@ -103,12 +103,12 @@ namespace WebKeep.Pages
             public string? Category{ get; set; }
 
             [MinLength(0)]
-            [StringLength(50)]
+            [StringLength(200)]
             [Display(Name = "ќписание")]
             public string? Description { get; set; }
 
             [MinLength(0)]
-            [StringLength(250)]
+            [StringLength(500)]
             [Display(Name = "—сылка на ресурс")]
             public string? Link { get; set; }
         }
