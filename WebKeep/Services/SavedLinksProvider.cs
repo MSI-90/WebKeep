@@ -27,7 +27,7 @@ namespace WebKeep.Services
         {
             using(var connection = _connection.CreateConnection())
             {
-                var result = await connection.QueryAsync<DbModel>("SELECT * FROM SavedLinks");
+                var result = await connection.QueryAsync<DbModel>("SELECT * FROM SavedLinks ORDER BY Category");
                 if (result is null)
                     return new List<DbModel>();
                 return result.ToList();
