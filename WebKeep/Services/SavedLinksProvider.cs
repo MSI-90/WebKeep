@@ -112,10 +112,10 @@ namespace WebKeep.Services
                         Value = resultList[i]
                     };
                 }
-                if (categoryResult is null)
-                    return null;
-                else
+                if (categoryResult != null)
                     return categoryResult;
+                else
+                    return Array.Empty<SelectListItem>();
             }
         }
         public async Task<IEnumerable<DbModel>> GetAllDataFromCategory(FilterSortModel sort)

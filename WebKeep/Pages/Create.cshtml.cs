@@ -42,7 +42,7 @@ namespace WebKeep.Pages
                     }
                     return RedirectToPage("DataList");
                 }
-                catch (System.AggregateException ex)
+                catch (System.AggregateException)
                 {
                     return RedirectToPage("NotFound", new
                     {
