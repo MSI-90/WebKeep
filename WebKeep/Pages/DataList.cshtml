@@ -1,4 +1,5 @@
 ﻿@page
+@using WebKeep.Models;
 @model WebKeep.Pages.DataListModel
 @{
     ViewData["Title"] = "Список";
@@ -59,7 +60,13 @@
                 <div class="col-md-5 mystyle">Ссылка на ресурс</div>
                 <div class="col-md-2 mystyle">Дата добавления</div>
             </div>
-
+            @{
+                int num_rows = 1;
+                if (Model.PageInfo != null)
+                {
+                    num_rows = (Model.PageInfo.ItemsPerPage * Model.PageInfo.CurrentPage - 1) + 1;
+                }
+            }
             @foreach (var item in Model.SavedLinksList)
             {
                 <partial name="_SavedLinksList" model="item" />
@@ -72,6 +79,29 @@
                                 <a asp-area="" asp-page="EditPage" asp-route-id="@item.Id" asp-page-handler="DeleteSavedlinks">Удалить</a>
                             </span>
                         </div>
+                    </div>
+                </div>
+                num_rows += 1;
+            }
+            @if (Model.PageInfo != null)
+            {
+                <div class="row mb-md-2">
+                    <div class="col">Страница:</div>
+                    <div class="btn-group m-1">
+                        @{
+                            PagingInfo pInfo = @Model.PageInfo;
+                            for (int e = 1; e <= pInfo.TotalPages; e++)
+                            {
+                                if (e == pInfo.CurrentPage)
+                                {
+                                    <a class="btn-primary btn" asp-page-handler="Index" asp-route-elementPage="@e">@e</a>
+                                }
+                                else
+                                {
+                                    <a class="btn-secondary btn" asp-page-handler="Index" asp-route-elementPage="@e">@e</a>
+                                }
+                            }
+                        }
                     </div>
                 </div>
             }
