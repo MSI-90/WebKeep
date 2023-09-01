@@ -43,7 +43,7 @@
                     <form method="get">
                         <select asp-for="InputSort.Categories" asp-items="Model.Categories" class="form-control"
                                 style="color:maroon;font-size:14px; width:30%;font-weight:bold; text-align:center;">
-                            <option value="">--не выбрано--</option>
+                            <option value=""> -- не выбрано -- </option>
                         </select>
                         <br/>
                         <button type="submit" asp-page-handler="FilterCategories" class="btn btn-info">Показать</button>
@@ -92,13 +92,14 @@
                             PagingInfo pInfo = @Model.PageInfo;
                             for (int e = 1; e <= pInfo.TotalPages; e++)
                             {
+
                                 if (e == pInfo.CurrentPage)
                                 {
-                                    <a class="btn-primary btn" asp-page-handler="Index" asp-route-elementPage="@e">@e</a>
+                                    <a class="btn-primary btn" asp-route-InputSort.Categories="@Model.InputSort.Categories" asp-route-elementPage="@e">@e</a>
                                 }
                                 else
                                 {
-                                    <a class="btn-secondary btn" asp-page-handler="Index" asp-route-elementPage="@e">@e</a>
+                                    <a class="btn-secondary btn" asp-route-InputSort.Categories="@Model.InputSort.Categories" asp-route-elementPage="@e">@e</a>
                                 }
                             }
                         }
@@ -116,7 +117,9 @@
         </div>
         <div class="row">
             <div class="col-md">
-                <button name="Create" asp-page="" asp-page-handler="">Добавить запись</button>
+                <form action="../Pages/Create.cshtml">
+                    <button asp-page="Create" type="submit" class="btn btn-outline-success">Добавить запись</button>
+                </form>
             </div>
         </div>
     }

@@ -120,7 +120,6 @@ namespace WebKeep.Services
         }
         public async Task<IEnumerable<DbModel>> GetAllDataFromCategory(FilterSortModel sort)
         {
-
             using (var connection = _connection.CreateConnection())
             {
                 var query = $"SELECT * FROM SavedLinks WHERE Category='{sort.Categories}'";
