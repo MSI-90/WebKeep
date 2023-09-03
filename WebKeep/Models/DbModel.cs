@@ -8,7 +8,7 @@ namespace WebKeep.Models
         public string Category { get; set; }
         public string? Description { get; set; }
         public string? Link { get; set; }
-        public string Date { get; set; } = DateTime.UtcNow.ToString("dd.mm.yyyy");
+        public string Date { get; set; }/* = DateTime.UtcNow.ToString("dd.MM.yyyy");*/
         public int IndexCount { get; set; }
     }
 }

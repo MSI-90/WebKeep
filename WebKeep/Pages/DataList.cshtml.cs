@@ -54,8 +54,9 @@ namespace WebKeep.Pages
                 TotalItems = Count
             };
             PageInfo = pagInfo;
-            SavedLinksList = SavedLinksList.OrderBy(x => x.Date).Skip((pagInfo.CurrentPage - 1) * 
-                pageSize).Take(pageSize).ToList();
+            SavedLinksList = SavedLinksList.Skip((pagInfo.CurrentPage - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
         }
         public class FilterSortModel
         {
