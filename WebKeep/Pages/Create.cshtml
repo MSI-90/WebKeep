@@ -22,14 +22,14 @@
         <div class="form-group">
             <div class="row">
                 <div class="col">
-                    <label asp-for="UserInput.Category"></label>
-                    <input class="form-control" asp-for="UserInput.Category">
-                </div>
-                <div class="col">
                     <label asp-for="InputCategory.Category"></label>
-                    <select asp-for="InputCategory.Category" asp-items="Model.Categories" class="form-control">
+                    <select asp-for="InputCategory.Category" asp-items="Model.Categories" class="form-select">
                         <option value=""> -- не выбрано -- </option>
                     </select>
+                </div>
+                <div class="col">
+                    <label asp-for="UserInput.Category"></label>
+                    <input class="form-control" asp-for="UserInput.Category">
                 </div>
                 <div class="col"></div>
             </div>
