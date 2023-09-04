@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 using WebKeep.Interfaces;
 
@@ -13,9 +14,16 @@ namespace WebKeep.Pages
 
         [BindProperty]
         public UserInputModel UserInput { get; set; }
+        public SelectListItem[] Categories { get; set; }
+
+        [BindProperty]
+        public InputCategoryUser InputCategory { get; set; }
         public Index2Model(ISavedLinks savedLinks)
         {
             _savedLinks = savedLinks;
+            var categoryResult = _savedLinks.GetCategory();
+            if (categoryResult != null)
+                Categories = categoryResult.Result;
         }
         public void OnGet()
         {
@@ -23,16 +31,16 @@ namespace WebKeep.Pages
         }
         public IActionResult OnPost()
         {
-            if (!ModelState.IsValid)
-            {
-                ModelState.AddModelError(String.Empty, "Ошибка");
-                return Page();
-            }
-            else 
-            {
+            //if (!ModelState.IsValid)
+            //{
+            //    ModelState.AddModelError(String.Empty, "Ошибка");
+            //    return Page();
+            //}
+            //else 
+            //{
                 try
                 {
-                    var result = _savedLinks.AddNewItemInSavedLinks(UserInput);
+                    var result = _savedLinks.AddNewItemInSavedLinks(UserInput, InputCategory);
                     if (result.Result != 1)
                     {
                         return RedirectToPage("NotFound", new
@@ -49,14 +57,19 @@ namespace WebKeep.Pages
                         error = "Ошибка в синтаксисе запроса SQL, возникла ошибка!"
                     });
                 }
-            }
+            //}
+        }
+        public class InputCategoryUser
+        {
+            [Display(Name = "Имеющиеся категории")]
+            public string Category { get; set; }
         }
         public class UserInputModel
         {
-            [Required]
+            //[Required]
             [StringLength(50)]
             [Display(Name = "Категория")]
-            public string Category { get; set; }
+            public string? Category { get; set; }
 
             [Required]
             [StringLength(200)]
