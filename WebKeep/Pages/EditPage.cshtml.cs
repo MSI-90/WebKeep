@@ -108,7 +108,7 @@ namespace WebKeep.Pages
             public string? Description { get; set; }
 
             [MinLength(0)]
-            [StringLength(500)]
+            [StringLength(1000)]
             [Display(Name = "—сылка на ресурс")]
             public string? Link { get; set; }
         }

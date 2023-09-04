@@ -31,25 +31,33 @@ namespace WebKeep.Pages
         }
         public IActionResult OnPost()
         {
-            try
+            if (ModelState.IsValid)
             {
-                var result = _savedLinks.AddNewItemInSavedLinks(UserInput, InputCategory);
-                if (result.Result != 1)
+                try
+                {
+                    var result = _savedLinks.AddNewItemInSavedLinks(UserInput);
+                    if (result.Result != 1)
+                    {
+                        return RedirectToPage("NotFound", new
+                        {
+                            error = "Невозможно добавить запись в список, возникла ошибка!"
+                        });
+                    }
+                    return RedirectToPage("DataList");
+                }
+                catch (System.AggregateException)
                 {
                     return RedirectToPage("NotFound", new
                     {
-                        error = "Невозможно добавить запись в список, возникла ошибка!"
+                        error = "Ошибка в синтаксисе запроса SQL, возникла ошибка!"
                     });
                 }
-                return RedirectToPage("DataList");
             }
-            catch (System.AggregateException)
+            else
             {
-                return RedirectToPage("NotFound", new
-                {
-                    error = "Ошибка в синтаксисе запроса SQL, возникла ошибка!"
-                });
+                return Page();
             }
+            
         }
         public class InputCategoryUser
         {
@@ -58,7 +66,7 @@ namespace WebKeep.Pages
         }
         public class UserInputModel
         {
-            //[Required]
+            [Required]
             [StringLength(50)]
             [Display(Name = "Категория")]
             public string? Category { get; set; }
@@ -69,7 +77,7 @@ namespace WebKeep.Pages
             public string Description { get; set; }
 
             [Required]
-            [StringLength(500)]
+            [StringLength(1000)]
             [Display(Name = "Ссылка на ресурс")]
             public string Link { get; set; }
             public string Date { get; set; } = DateTime.Now.ToString("dd.MM.yyyy");

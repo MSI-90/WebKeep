@@ -14,7 +14,7 @@ namespace WebKeep.Interfaces
         Task<DbModel> GetSavedLinks(int id);
         Task<int> UpdateSavedLinks(UserEditModel model, int id);
         Task<int> DeleteSavedLinks(int id);
-        Task<int> AddNewItemInSavedLinks(UserInputModel model, InputCategoryUser input);
+        Task<int> AddNewItemInSavedLinks(UserInputModel model);
         Task<SelectListItem[]> GetCategory();
         Task<IEnumerable<DbModel>> GetAllDataFromCategory(FilterSortModel sort);
     }

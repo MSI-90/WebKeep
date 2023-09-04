@@ -81,15 +81,15 @@ namespace WebKeep.Services
             }
             return result;
         }
-        public async Task<int> AddNewItemInSavedLinks(UserInputModel model, InputCategoryUser input)
+        public async Task<int> AddNewItemInSavedLinks(UserInputModel model)
         {
             using(var connection = _connection.CreateConnection())
             {
-                string? category = string.IsNullOrEmpty(model.Category) 
-                    ? input.Category
-                    : model.Category;
+                //string? category = string.IsNullOrEmpty(model.Category) 
+                //    ? input.Category
+                //    : model.Category;
                 
-                var query = $"INSERT INTO SavedLinks (Category, Description, Link, Date) VALUES ('{category}', '{model.Description}', " +
+                var query = $"INSERT INTO SavedLinks (Category, Description, Link, Date) VALUES ('{model.Category}', '{model.Description}', " +
                     $"'{model.Link}', '{model.Date}')";
                 var result = await connection.ExecuteAsync(query);
                 return result;
