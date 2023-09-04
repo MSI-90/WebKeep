@@ -31,33 +31,25 @@ namespace WebKeep.Pages
         }
         public IActionResult OnPost()
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    ModelState.AddModelError(String.Empty, "Ошибка");
-            //    return Page();
-            //}
-            //else 
-            //{
-                try
-                {
-                    var result = _savedLinks.AddNewItemInSavedLinks(UserInput, InputCategory);
-                    if (result.Result != 1)
-                    {
-                        return RedirectToPage("NotFound", new
-                        {
-                            error = "Невозможно добавить запись в список, возникла ошибка!"
-                        });
-                    }
-                    return RedirectToPage("DataList");
-                }
-                catch (System.AggregateException)
+            try
+            {
+                var result = _savedLinks.AddNewItemInSavedLinks(UserInput, InputCategory);
+                if (result.Result != 1)
                 {
                     return RedirectToPage("NotFound", new
                     {
-                        error = "Ошибка в синтаксисе запроса SQL, возникла ошибка!"
+                        error = "Невозможно добавить запись в список, возникла ошибка!"
                     });
                 }
-            //}
+                return RedirectToPage("DataList");
+            }
+            catch (System.AggregateException)
+            {
+                return RedirectToPage("NotFound", new
+                {
+                    error = "Ошибка в синтаксисе запроса SQL, возникла ошибка!"
+                });
+            }
         }
         public class InputCategoryUser
         {
