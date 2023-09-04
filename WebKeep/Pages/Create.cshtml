@@ -7,7 +7,11 @@
         var inputElement = document.querySelector('input[name="UserInput.Category"]');
 
         selectElement.addEventListener('change', function () {
-            inputElement.value = selectElement.value;
+            if (selectElement.value === "") {
+                inputElement.value = "введите текст";
+            } else {
+                inputElement.value = selectElement.value;
+            }
         });
     });
 </script>
