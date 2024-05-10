@@ -9,7 +9,7 @@ namespace WebKeep.Services
     public class DbConnections: IDbConnect
     {
         private readonly IConfiguration _configuration;
-        public string? ErrorMessage { get; set; }
+        public string? ErrorMessage { get; set; } 
         public DbConnections(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -19,21 +19,36 @@ namespace WebKeep.Services
         {
             try
             {
-                SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("DefaultString"));
-                connection.Open();
-                return connection;
+                using(SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("DefaultString")))
+                {
+                    connection.Open();
+                    return connection;
+                }
+                
+                //if (connection is null)
+                //{
+                //    ErrorMessage = "Отсутствует база данных";
+                //    return null;
+                //} 
+                //connection?.Open();
+                //return connection;
                     
             }
-            catch (InvalidOperationException message)
+            catch(SqlException)
             {
-                ErrorMessage = message.Message.ToString();
+                ErrorMessage = "Отсутсвует база данных";
                 return null;
             }
-            catch (SqlException message)
-            {
-                ErrorMessage = message.Message.ToString();
-                return null;
-            }
+            //catch (InvalidOperationException message)
+            //{
+            //    ErrorMessage = message.Message.ToString();
+            //    return null;
+            //}
+            //catch (SqlException message)
+            //{
+            //    ErrorMessage = message.Message.ToString();
+            //    return null;
+            //}
             
         }
     }

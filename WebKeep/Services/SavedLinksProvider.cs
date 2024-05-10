@@ -10,6 +10,7 @@ using static WebKeep.Pages.Index2Model;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using static System.Net.WebRequestMethods;
 using static WebKeep.Pages.DataListModel;
+using System.Data.Common;
 
 namespace WebKeep.Services
 {   
@@ -25,7 +26,10 @@ namespace WebKeep.Services
         }
         public async Task<IEnumerable<DbModel>> GetDataAsync()
         {
-            using(var connection = _connection.CreateConnection())
+            if (!string.IsNullOrEmpty(_connection.ErrorMessage))
+                return new List<DbModel>();
+
+            using (var connection = _connection.CreateConnection())
             {
                 var result = await connection.QueryAsync<DbModel>("SELECT * FROM SavedLinks");
                 if (result is null)
@@ -100,7 +104,10 @@ namespace WebKeep.Services
         // Затем выбранные записи помещаются в SelectListItem для отображения на странице
         public async Task<SelectListItem[]> GetCategory()
         {
-            using( var connection = _connection.CreateConnection())
+            if (!string.IsNullOrEmpty(_connection.ErrorMessage))
+                return Array.Empty<SelectListItem>();
+
+            using ( var connection = _connection.CreateConnection())
             {
                 var query = "SELECT DISTINCT Category FROM SavedLinks";
                 var result = await connection.QueryAsync<string>(query);
